@@ -14,13 +14,14 @@ datasource db {
 model User {
   id  Int @id
   name  String
-
+  picture String?
+  account Account?
 }
 
 model Account {
-  id  Int @id
-  account String? @unique
-  password String? 
+  id  String @id // id는 oauth info에서 얻는 id
   refreshToken String? 
-  provider String 
+  provider String // GOOGLE, KAKAO, ...
+  user User @relation(fields: [userId], references: [id])
+  userId Int @unique
 }
